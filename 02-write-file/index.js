@@ -13,7 +13,7 @@ output.write('Dear Sir or Madame, write some text down below, if you please:\n')
 const closeCommand = function() {  
   output.write('Thx, seeYa!');
   rl.close();
-}
+};
 
 rl.on('SIGINT', closeCommand);
 rl.on('line', (text) => {
@@ -24,6 +24,3 @@ rl.on('line', (text) => {
   }
 });
 rl.on('error', error => console.log('Error', error.message));
-
-
-
