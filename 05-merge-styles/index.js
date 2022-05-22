@@ -2,8 +2,8 @@ const path = require('node:path');
 const fs = require('node:fs');
 
 const pathToSourceDir = path.resolve(__dirname, 'styles');
-const pathToDestDir = path.resolve(__dirname, 'project-dist', 'bundle.css');
-const writeableStream = fs.createWriteStream(pathToDestDir, 'utf-8');
+const pathToDest = path.resolve(__dirname, 'project-dist', 'bundle.css');
+const writeableStream = fs.createWriteStream(pathToDest, 'utf-8');
 
 const bundleCSS = (src) => {
   readDir(src);

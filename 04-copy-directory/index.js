@@ -15,7 +15,8 @@ const createDir = (source, dest) => {
   fs.mkdir(dest, {recursive: true}, (err) => {
     if (err) throw err;
     readDir(source, dest);
-  });};
+  });
+};
 
 const readDir = (source, dest) => {
   fs.readdir(source, {withFileTypes: true}, (err, files) => {
