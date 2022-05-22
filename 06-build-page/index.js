@@ -7,6 +7,9 @@ const pathToStylesDir = path.resolve(__dirname, 'styles');
 const pathToHTML = path.resolve(__dirname, 'template.html');
 const pathToDestDir = path.resolve(__dirname, 'project-dist');
 
+const pathToDestCss = path.resolve(pathToDestDir, 'style.css');
+const writeableStreamCSS = fs.createWriteStream(pathToDestCss, 'utf-8');
+
 const removeDir = (source, dest) => {
   fs.rm(dest, {force: true, recursive: true}, (err) => {
     if (err) throw err;
@@ -17,7 +20,9 @@ const removeDir = (source, dest) => {
 const createDir = (source, dest) => {
   fs.mkdir(dest, {recursive: true}, (err) => {
     if (err) throw err;
+
     readDir(source, dest);
+    // bundleCSS(pathToStylesDir);
   });
 };
 
@@ -46,8 +51,37 @@ const copyDir = (source, dest) => {
   removeDir(source, dest);
 };
 
+
+
+const bundleCSS = (src) => {
+  readCSSFiles(src);
+};
+
+const readCSSFiles = (src) => {
+  fs.readdir(src, {withFileTypes: true}, (err, files) => {
+    if (err) throw err;
+    files.forEach(el => {
+      if (el.isFile() && (path.extname(el.name) === '.css')) {
+        const currentFile = path.join(src, el.name);
+        readCurrentFile(currentFile);
+      }
+    });
+  });
+};
+
+const readCurrentFile = (file) => {
+  fs.readFile(file, (err, data) => {
+    if (err) throw err;
+    writeToDest(data);
+  });
+};
+
+const writeToDest = (data) => {  
+  writeableStreamCSS.write(`${data}\n`);
+};
+
 const buildPage = () => {
-  copyDir(pathToAssetsDir, path.join(pathToDestDir, 'assets'));
+  copyDir(pathToAssetsDir, path.join(pathToDestDir, 'assets')); //copy assets  
 };
 
 buildPage();
