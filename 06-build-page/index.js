@@ -62,7 +62,6 @@ const readCSSFiles = (src, dest) => {
     files.forEach(el => {
       if (el.isFile() && (path.extname(el.name) === '.css')) {
         const currentFile = path.join(src, el.name);
-        // console.log(el.name);
         readCurrentFile(currentFile, dest);
       }
     });
@@ -77,7 +76,7 @@ const readCurrentFile = (file, dest) => {
 };
 
 const writeToDest = (data, dest) => {
-  dest.write(`${data}\n`);
+  dest.write(`${data}\n\n`);
 };
 
 // BUNDLE HTML

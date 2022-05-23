@@ -11,8 +11,9 @@ const rl = readline.createInterface({ input, output });
 output.write('Dear Sir or Madame, write some text down below, if you please:\n');
 
 const closeCommand = function() {  
-  output.write('Thx, seeYa!');
-  rl.close();
+  output.write('\nThx, seeYa!');
+  rl.close();  
+  process.exit();
 };
 
 rl.on('SIGINT', closeCommand);
